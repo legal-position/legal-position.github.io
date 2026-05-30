@@ -58,12 +58,13 @@ h1,h2,h3{font-family:var(--serif);line-height:1.12;font-weight:700}
 .hero__stats{display:flex;gap:36px;margin-top:40px}
 .hero__stats .num{font-size:30px;font-weight:700;color:var(--gold);font-family:var(--serif)}
 .hero__stats .cap{font-size:13px;color:var(--muted-2)}
-.hero__media{aspect-ratio:4/5;border-radius:var(--radius);background:linear-gradient(160deg,#1a3157,#0b1526);border:1px solid rgba(217,180,106,.3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--serif);font-size:64px}
-.hero__media::after{content:"⚖";opacity:.85}
+.hero__media{display:flex;align-items:center;justify-content:center}
+.hero__logo{width:100%;max-width:380px;height:auto;filter:drop-shadow(0 10px 32px rgba(0,0,0,.4))}
 @media(max-width:860px){
   .hero__inner{grid-template-columns:1fr;gap:32px}
   .hero__title{font-size:34px}
-  .hero__media{max-width:320px;order:-1}
+  .hero__media{order:-1}
+  .hero__logo{max-width:260px}
 }
 
 /* Grid + Cards */
