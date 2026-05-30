@@ -39,7 +39,7 @@ h1,h2,h3{font-family:var(--serif);line-height:1.12;font-weight:700}
 .nav__menu a:hover{color:var(--gold)}
 .nav__cta{padding:9px 18px;font-size:14px}
 .nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
-.nav__burger span{width:24px;height:2px;background:var(--text);transition:.2s}
+.nav__burger span{width:24px;height:2px;background:var(--text);transition:background .2s}
 
 @media(max-width:860px){
   .nav__menu{position:fixed;inset:64px 0 auto 0;flex-direction:column;background:var(--navy-2);padding:18px 24px;gap:18px;border-bottom:1px solid var(--border);transform:translateY(-120%);transition:transform .25s ease}
@@ -133,4 +133,4 @@ h1,h2,h3{font-family:var(--serif);line-height:1.12;font-weight:700}
 .to-top:hover{transform:translateY(-2px)}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
 .reveal.is-in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}

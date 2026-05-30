@@ -59,8 +59,8 @@ const SITE_DATA = {
     address: "м. Київ, вул. Прикладна, 1",
     hours: "Пн–Пт, 9:00–18:00",
     telegramUrl: "https://t.me/",
-    // Google Maps embed: Maps -> Поділитися -> Вбудувати карту -> скопіювати src з iframe
-    mapEmbedUrl: "https://www.google.com/maps?q=Київ&output=embed"
+    // Google Maps embed: Maps -> Поділитися -> Вбудувати карту -> вставте сюди значення src з iframe (https://www.google.com/maps/embed?pb=...)
+    mapEmbedUrl: ""
   }
 };
 
@@ -92,13 +92,16 @@ function renderHero(){
     .map(s => `<div><div class="num">${s.num}</div><div class="cap">${s.label}</div></div>`).join('');
 }
 
-function renderAbout(){
-  document.getElementById('about-text').textContent = SITE_DATA.about.text;
-  document.getElementById('about-advantages').innerHTML = SITE_DATA.about.advantages
-    .map(a => `<div class="card"><div class="card__ico">${icon(a.icon)}</div><h3>${a.title}</h3><p>${a.text}</p></div>`).join('');
+function renderCard({ icon: iconName, title, text }){
+  return `<div class="card"><div class="card__ico">${icon(iconName)}</div><h3>${title}</h3><p>${text}</p></div>`;
 }
 
-function initials(name){ return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
+function renderAbout(){
+  document.getElementById('about-text').textContent = SITE_DATA.about.text;
+  document.getElementById('about-advantages').innerHTML = SITE_DATA.about.advantages.map(renderCard).join('');
+}
+
+function initials(name){ return name.split(' ').filter(Boolean).map(w => w[0]).slice(0,2).join('').toUpperCase(); }
 function renderTeam(){
   document.getElementById('team-grid').innerHTML = SITE_DATA.team.map(m => {
     const photo = m.photo
@@ -109,8 +112,7 @@ function renderTeam(){
 }
 
 function renderServices(){
-  document.getElementById('services-grid').innerHTML = SITE_DATA.services
-    .map(s => `<div class="card"><div class="card__ico">${icon(s.icon)}</div><h3>${s.title}</h3><p>${s.text}</p></div>`).join('');
+  document.getElementById('services-grid').innerHTML = SITE_DATA.services.map(renderCard).join('');
 }
 
 function renderTestimonials(){
@@ -121,7 +123,7 @@ function renderTestimonials(){
 function renderFAQ(){
   document.getElementById('faq-list').innerHTML = SITE_DATA.faq.map(f =>
     `<div class="faq__item">
-       <button class="faq__q" type="button">${f.q}<span class="mark">+</span></button>
+       <button class="faq__q" type="button" aria-expanded="false">${f.q}<span class="mark" aria-hidden="true">+</span></button>
        <div class="faq__a"><p>${f.a}</p></div>
      </div>`).join('');
 
@@ -132,11 +134,13 @@ function renderFAQ(){
       document.querySelectorAll('.faq__item').forEach(i => {
         i.classList.remove('is-open');
         i.querySelector('.faq__a').style.maxHeight = null;
+        i.querySelector('.faq__q').setAttribute('aria-expanded','false');
       });
       if(!isOpen){
         item.classList.add('is-open');
         const ans = item.querySelector('.faq__a');
         ans.style.maxHeight = ans.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded','true');
       }
     });
   });
@@ -166,7 +170,7 @@ function renderContacts(){
     <a class="btn btn--primary" href="${c.telegramUrl}" target="_blank" rel="noopener">Написати в Telegram</a>
     <a class="btn btn--ghost" href="${telHref}">Зателефонувати</a>
     <a class="btn btn--ghost" href="mailto:${c.email}">Email</a>`;
-  document.getElementById('contacts-map').src = c.mapEmbedUrl;
+  if (c.mapEmbedUrl) { document.getElementById('contacts-map').src = c.mapEmbedUrl; }
 }
 
 function renderFooter(){
@@ -174,12 +178,12 @@ function renderFooter(){
   document.getElementById('footer').innerHTML = `
     <div class="container footer__inner">
       <div class="footer__brand">${SITE_DATA.brand.name}</div>
-      <div class="footer__links">
+      <nav class="footer__links" aria-label="Нижнє меню">
         <a href="#about">Про нас</a>
         <a href="#services">Послуги</a>
         <a href="#faq">FAQ</a>
         <a href="#contacts">Контакти</a>
-      </div>
+      </nav>
       <div class="footer__copy">© ${year} ${SITE_DATA.brand.name}. Усі права захищено.</div>
     </div>`;
 }
@@ -202,7 +206,10 @@ function initInteractions(){
   window.addEventListener('scroll', () => {
     toTop.classList.toggle('is-visible', window.scrollY > 500);
   });
-  toTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  toTop.addEventListener('click', () => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top:0, behavior: reduced ? 'auto' : 'smooth' });
+  });
 
   // Scroll reveal
   const obs = new IntersectionObserver((entries) => {
