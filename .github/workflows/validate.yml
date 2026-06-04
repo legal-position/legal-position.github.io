@@ -1,0 +1,61 @@
+name: Validate
+
+# Перевіряє, що всі файли "компілюються" (коректно парсяться) після змін:
+#   JS     -> node --check (синтаксис)
+#   HTML   -> htmlhint (структурна валідність)
+#   CSS    -> stylelint (лише синтаксичні помилки)
+#   Python -> py_compile (синтаксис генераторів у scripts/)
+# Запускається на кожен push і на кожен Pull Request.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: JS — syntax (node --check)
+        run: |
+          files=$(git ls-files '*.js')
+          if [ -z "$files" ]; then echo "no JS files"; exit 0; fi
+          for f in $files; do echo "check $f"; node --check "$f"; done
+          echo "✓ JS OK"
+
+      - name: HTML — structure (htmlhint)
+        run: |
+          files=$(git ls-files '*.html' ':!:mockups/**')
+          if [ -z "$files" ]; then echo "no HTML files"; exit 0; fi
+          npx --yes htmlhint@1 --config .htmlhintrc $files
+
+      - name: CSS — syntax (stylelint)
+        run: |
+          files=$(git ls-files '*.css')
+          if [ -z "$files" ]; then echo "no CSS files"; exit 0; fi
+          npx --yes stylelint@16 --config .stylelintrc.json $files
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Python — compile (py_compile)
+        run: |
+          files=$(git ls-files '*.py')
+          if [ -z "$files" ]; then echo "no Python files"; exit 0; fi
+          python -m py_compile $files
+          echo "✓ Python OK"
+
+      - name: Summary
+        run: echo "✓ All files parsed/compiled successfully"
