@@ -17,7 +17,7 @@ import os
 import segno
 from PIL import Image, ImageDraw
 
-URL = "https://legal-position.github.io/portfolio/"
+URL = "https://legal-position.github.io/"
 NAVY = "#0e1c33"
 GOLD = "#d9b46a"
 WHITE = "#ffffff"
