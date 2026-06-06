@@ -17,6 +17,7 @@ OWL_FRAC = 0.72            # owl size as fraction of the icon
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(ROOT, "assets", "logo.png")
 OUT = os.path.join(ROOT, "assets", "favicon.png")
+OUT_ICO = os.path.join(ROOT, "favicon.ico")
 
 
 def crop_owl(logo_path):
@@ -58,7 +59,9 @@ def main():
     owl_r = owl.resize((max(1, int(ow * s)), max(1, int(oh * s))), Image.LANCZOS)
     icon.alpha_composite(owl_r, ((SIZE - owl_r.width) // 2, (SIZE - owl_r.height) // 2))
     icon.convert("RGB").save(OUT, "PNG")
-    print(f"wrote {OUT} ({SIZE}x{SIZE}), owl crop {owl.size}")
+    # Multi-size .ico at the site root (Google and many tools probe /favicon.ico first)
+    icon.save(OUT_ICO, format="ICO", sizes=[(48, 48), (32, 32), (16, 16)])
+    print(f"wrote {OUT} ({SIZE}x{SIZE}) and {OUT_ICO}, owl crop {owl.size}")
 
 
 if __name__ == "__main__":
