@@ -31,10 +31,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Stage site files
-        # Publish only the site itself (keeps docs/ and mockups/ off the live URL).
+        # Publish the runtime site (keeps docs/, mockups/, scripts/ off the live URL).
         run: |
           mkdir -p _site
-          cp index.html styles.css script.js _site/
+          cp index.html styles.css script.js site-data.js sitemap.xml robots.txt favicon.ico _site/
+          cp -r assets _site/assets
+          cp -r images _site/images
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
