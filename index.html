@@ -85,6 +85,23 @@
     ]
   }
   </script>
+
+  <!-- Site navigation (підказка пошуковику про розділи сторінки) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Навігація сайту",
+    "itemListElement": [
+      { "@type": "SiteNavigationElement", "position": 1, "name": "Про нас", "url": "https://legal-position.github.io/#about" },
+      { "@type": "SiteNavigationElement", "position": 2, "name": "Команда", "url": "https://legal-position.github.io/#team" },
+      { "@type": "SiteNavigationElement", "position": 3, "name": "Послуги", "url": "https://legal-position.github.io/#services" },
+      { "@type": "SiteNavigationElement", "position": 4, "name": "Відгуки", "url": "https://legal-position.github.io/#testimonials" },
+      { "@type": "SiteNavigationElement", "position": 5, "name": "Часті запитання", "url": "https://legal-position.github.io/#faq" },
+      { "@type": "SiteNavigationElement", "position": 6, "name": "Контакти", "url": "https://legal-position.github.io/#contacts" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="nav" id="nav">
@@ -106,7 +123,7 @@
   </header>
 
   <main>
-    <section class="hero" id="hero">
+    <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="container hero__inner">
         <div class="hero__content">
           <p class="hero__eyebrow" id="hero-eyebrow"></p>
@@ -124,62 +141,62 @@
       </div>
     </section>
 
-    <section class="section section--alt" id="about">
+    <section class="section section--alt" id="about" aria-labelledby="about-title">
       <div class="container">
         <p class="section__eyebrow">Про нас</p>
-        <h2 class="section__title">Команда, якій довіряють</h2>
+        <h2 class="section__title" id="about-title">Команда, якій довіряють</h2>
         <p class="section__lead" id="about-text"></p>
         <div class="grid grid--4" id="about-advantages"></div>
       </div>
     </section>
 
-    <section class="section" id="team">
+    <section class="section" id="team" aria-labelledby="team-title">
       <div class="container">
         <p class="section__eyebrow">Команда</p>
-        <h2 class="section__title">Наші адвокати</h2>
+        <h2 class="section__title" id="team-title">Наші адвокати</h2>
         <p class="section__lead">Досвідчені фахівці у ключових галузях права.</p>
         <div class="grid grid--3" id="team-grid"></div>
       </div>
     </section>
 
-    <section class="section section--alt" id="services">
+    <section class="section section--alt" id="services" aria-labelledby="services-title">
       <div class="container">
         <p class="section__eyebrow">Послуги</p>
-        <h2 class="section__title">Напрями роботи</h2>
+        <h2 class="section__title" id="services-title">Напрями роботи</h2>
         <p class="section__lead">Повний спектр юридичних послуг для фізичних осіб і бізнесу.</p>
         <div class="grid grid--3" id="services-grid"></div>
       </div>
     </section>
 
-    <section class="section" id="testimonials">
+    <section class="section" id="testimonials" aria-labelledby="testimonials-title">
       <div class="container">
         <p class="section__eyebrow">Відгуки</p>
-        <h2 class="section__title">Що кажуть клієнти</h2>
+        <h2 class="section__title" id="testimonials-title">Що кажуть клієнти</h2>
         <div class="grid grid--3" id="testimonials-grid"></div>
       </div>
     </section>
 
-    <section class="section section--alt" id="faq">
+    <section class="section section--alt" id="faq" aria-labelledby="faq-title">
       <div class="container container--narrow">
         <p class="section__eyebrow">Часті запитання</p>
-        <h2 class="section__title">Що найчастіше запитують</h2>
+        <h2 class="section__title" id="faq-title">Що найчастіше запитують</h2>
         <div class="faq" id="faq-list"></div>
       </div>
     </section>
 
-    <section class="section" id="social">
+    <section class="section" id="social" aria-labelledby="social-title">
       <div class="container">
         <p class="section__eyebrow">Соцмережі</p>
-        <h2 class="section__title">Стежте за нами</h2>
+        <h2 class="section__title" id="social-title">Стежте за нами</h2>
         <p class="section__lead">Корисний та якісний юридичний контент у зручному для вас форматі.</p>
         <div class="social" id="social-links"></div>
       </div>
     </section>
 
-    <section class="section section--alt" id="contacts">
+    <section class="section section--alt" id="contacts" aria-labelledby="contacts-title">
       <div class="container">
         <p class="section__eyebrow">Контакти</p>
-        <h2 class="section__title">Звʼяжіться з нами</h2>
+        <h2 class="section__title" id="contacts-title">Звʼяжіться з нами</h2>
         <div class="contacts">
           <div class="contacts__info">
             <ul class="contacts__list" id="contacts-list"></ul>
