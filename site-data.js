@@ -97,6 +97,6 @@ const SITE_DATA = {
     hours: "Пн–Пт, 9:00–18:00",
     telegramUrl: "https://t.me/andriytarasenko",
     // Google Maps embed: Maps -> Поділитися -> Вбудувати карту -> вставте сюди значення src з iframe (https://www.google.com/maps/embed?pb=...)
-    mapEmbedUrl: ""
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.191187973137!2d32.05421338622563!3d49.44310339771926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d14b7de3148405%3A0x3e0a04b69cf5df94!2sShevchenka%20Blvd%2C%20222%2C%20Cherkasy%2C%20Cherkas&#39;ka%20oblast%2C%2018000!5e0!3m2!1sen!2sua!4v1781200369447!5m2!1sen!2sua"
   }
 };
